@@ -3,13 +3,14 @@ import 'package:restaurantApp/models/meal.dart';
 
 class MealItem extends StatelessWidget {
   final Meal meal;
+  final Function(BuildContext context, Meal meal) onItemClicked;
 
-  const MealItem(this.meal);
+  const MealItem(this.meal, this.onItemClicked);
 
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      onTap: () {},
+      onTap: () => onItemClicked(context, meal),
       child: Card(
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(13),
