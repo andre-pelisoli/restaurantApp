@@ -1,11 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:restaurantApp/components/meal_item.dart';
-import 'package:restaurantApp/data/dummy_data.dart';
 import 'package:restaurantApp/models/category.dart';
 import 'package:restaurantApp/models/meal.dart';
 import 'package:restaurantApp/screens/routes/app_routes.dart';
 
 class MealScreen extends StatelessWidget {
+  final List<Meal> meals;
+
+  const MealScreen(this.meals);
+
   void _onMealClicked(BuildContext context, Meal meal) {
     Navigator.of(context).pushNamed(
       AppRoutes.MEAL_DETAILS,
@@ -17,7 +20,7 @@ class MealScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     final category = ModalRoute.of(context).settings.arguments as Category;
 
-    final categoryMeals = DUMMY_MEALS.where((meal) {
+    final categoryMeals = meals.where((meal) {
       return meal.categories.contains(category.id);
     }).toList();
 

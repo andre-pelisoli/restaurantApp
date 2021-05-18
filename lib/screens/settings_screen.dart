@@ -3,20 +3,38 @@ import 'package:restaurantApp/components/main_drawer.dart';
 import 'package:restaurantApp/models/settings.dart';
 
 class SettingsScreen extends StatefulWidget {
+  final Settings settings;
+  final Function(Settings) onSettingsScreen;
+
+  const SettingsScreen(this.onSettingsScreen, this.settings);
+
   @override
   _SettingsScreenState createState() => _SettingsScreenState();
 }
 
 class _SettingsScreenState extends State<SettingsScreen> {
-  var settings = Settings();
+  Settings settings;
+
+  @override
+  void initState() {
+    super.initState();
+    settings = widget.settings;
+  }
 
   Widget _createSwitch(
-      String title, String subtitle, bool value, Function onChanged) {
+    String title,
+    String subtitle,
+    bool value,
+    Function(bool) onChanged,
+  ) {
     return SwitchListTile.adaptive(
         title: Text(title),
         subtitle: Text(subtitle),
         value: value,
-        onChanged: onChanged);
+        onChanged: (value) {
+          onChanged(value);
+          widget.onSettingsScreen(settings);
+        });
   }
 
   @override
